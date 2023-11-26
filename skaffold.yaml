@@ -1,0 +1,13 @@
+apiVersion: skaffold/v2beta29
+kind: Config
+metadata:
+  name: kuberay-eks
+
+deploy:
+  helm:
+    releases:
+      - name: kuberay-operator
+        repo: https://ray-project.github.io/kuberay-helm/
+        remoteChart: kuberay-operator
+        version: 1.0.0
+        upgradeOnChange: true
