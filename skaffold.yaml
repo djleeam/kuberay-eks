@@ -3,11 +3,24 @@ kind: Config
 metadata:
   name: kuberay-eks
 
-deploy:
-  helm:
-    releases:
-      - name: kuberay-operator
-        repo: https://ray-project.github.io/kuberay-helm/
-        remoteChart: kuberay-operator
-        version: 1.0.0
-        upgradeOnChange: true
+profiles:
+  # Profile for setting up the Kuberay Operator for managing Ray clusters/jobs/services
+  - name: operator
+
+    deploy:
+      helm:
+        releases:
+          - name: kuberay-operator
+            repo: https://ray-project.github.io/kuberay-helm/
+            remoteChart: kuberay-operator
+            version: 1.0.0
+            upgradeOnChange: true
+
+  # Profile for deploying models on Ray Serve
+  - name: serve
+
+    deploy:
+      kubectl:
+        manifests:
+          #- services/ray_v1alpha1_rayservice.yaml
+          - services/ray-service.mobilenet.yaml

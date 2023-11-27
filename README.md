@@ -23,6 +23,8 @@ https://developer.hashicorp.com/terraform/tutorials/kubernetes/eks
 # kuberay-operator-7fbdbf8c89-pt8bk   1/1     Running   0          27s
 ```
 
+Sample configs: https://github.com/ray-project/kuberay/tree/master/ray-operator/config/samples
+
 ## RayJob Quickstart
 
 https://docs.ray.io/en/latest/cluster/kubernetes/getting-started/rayjob-quick-start.html
