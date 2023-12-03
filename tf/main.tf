@@ -63,28 +63,45 @@ module "eks" {
   cluster_endpoint_public_access = true
 
   eks_managed_node_group_defaults = {
-    ami_type = "AL2_x86_64"
+    # Bottlerocket operates with two default storage volumes.
+    # https://github.com/bottlerocket-os/bottlerocket#default-volumes
+    ami_type = "BOTTLEROCKET_x86_64"
+
+    block_device_mappings = {
+      xvda = {
+        device_name = "/dev/xvda"
+        ebs = {
+          volume_size = 2
+        }
+      }
+      xvdb = {
+        device_name = "/dev/xvdb"
+        ebs = {
+          volume_size = 50
+        }
+      }
+    }
   }
 
   eks_managed_node_groups = {
     one = {
-      name = "node-group-1"
-
+      name          = "node-group-1"
       instance_types = ["t3.large"]
+      capacity_type = "SPOT"
 
       min_size     = 1
-      max_size     = 3
-      desired_size = 2
+      desired_size = 1
+      max_size     = 2
     }
 
     two = {
-      name = "node-group-2"
-
+      name          = "node-group-2"
       instance_types = ["t3.large"]
+      capacity_type = "SPOT"
 
       min_size     = 1
-      max_size     = 3
-      desired_size = 2
+      desired_size = 1
+      max_size     = 2
     }
   }
 }

@@ -16,7 +16,7 @@ https://developer.hashicorp.com/terraform/tutorials/kubernetes/eks
 
 ### Deploy a KubeRay operator
 
-* `skaffold run`
+* `skaffold run -p operator`
 * Confirm that the operator is running in the `default` namespace: `kubectl get pods`
 ```
 # NAME                                READY   STATUS    RESTARTS   AGE
@@ -25,6 +25,24 @@ https://developer.hashicorp.com/terraform/tutorials/kubernetes/eks
 
 Sample configs: https://github.com/ray-project/kuberay/tree/master/ray-operator/config/samples
 
-## RayJob Quickstart
+## RayServe Examples
+
+Run `skaffold run -p serve` to deploy models
+
+### Mobilenet App
+
+Port forward to mobilenet head node
+
+```
+kubectl port-forward $(kubectl get pod --selector=ray.io/node-type=head --output=json | jq -r '.items[] | select(.metadata.name | startswith("rayservice-mobilenet")) | .metadata.name') 8000:8000
+```
+
+Make a test request to the mobilenet app
+```
+. ./venv/bin/activate
+python apps/mobilenet/mobilenet_req.py
+```
+
+## RayJob Examples
 
 https://docs.ray.io/en/latest/cluster/kubernetes/getting-started/rayjob-quick-start.html

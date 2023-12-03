@@ -22,5 +22,5 @@ profiles:
     deploy:
       kubectl:
         manifests:
-          #- services/ray_v1alpha1_rayservice.yaml
-          - services/ray-service.mobilenet.yaml
+          #- apps/ray_v1alpha1_rayservice.yaml
+          - apps/mobilenet/ray-service.mobilenet.yaml
