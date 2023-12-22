@@ -33,7 +33,7 @@ profiles:
             setValues:
               image.repository: rayproject/ray
               # Use -aarch64 image tag when running on Apple Silicon (M1/M2)
-              image.tag: 2.9.0-aarch64
+              image.tag: 2.9.0-py39-aarch64
               #image.tag: 2.9.0
               head.rayVersion: 2.9.0
               head.resources.limits.cpu: 2
